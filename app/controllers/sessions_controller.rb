@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   def new
-  redirect_to "/sessions/new"
   end
 
   def create

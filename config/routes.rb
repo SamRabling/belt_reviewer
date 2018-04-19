@@ -1,20 +1,17 @@
 Rails.application.routes.draw do
-  # =========== user routes
-  get 'sessions/new' => 'sessions#new'
-
-  root 'users/index' => 'users#index'
-
-  get 'users/new' => 'users#new'
+  root 'users#new'
 
   post 'users/create' => 'users#create'
 
+  get 'sessions/new' => 'sessions#new'
+
+  post 'sessions/create' => 'sessions#create'
+
   get 'users/edit' => 'users#edit'
 
-  patch 'users/update' => 'users#update'
+  patch 'users/:id/update' => 'users#update'
 
-  delete 'users/destroy' => 'users#destroy'
-
-  #============ event routes
+  delete 'users/:id/destroy' => 'users#destroy'
 
   get 'events/index' => 'events#index'
 
@@ -22,17 +19,15 @@ Rails.application.routes.draw do
 
   get 'events/edit' => 'events#edit'
 
-  patch 'events/update' => 'events#update'
+  patch 'events/:id/update' => 'events#update'
 
-  delete 'events/destroy' => 'eventss#destroy'
-
-  # =========== comment routes
+  delete 'events/:id/destroy' => 'eventss#destroy'
 
   get 'comments/index' => 'comments#index'
 
   post 'comments/create' => 'commentss#create'
 
-  delete 'comments/destroy' => 'comments#destroy'
+  delete 'comments/:id/destroy' => 'comments#destroy'
 
   
 

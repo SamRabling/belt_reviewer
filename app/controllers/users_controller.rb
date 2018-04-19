@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
-  def index
-  end
-
+  before_action :verify_user, only: [:edit, :update, :destroy]
   def new
     @errors = flash[:errors]
   end
 
   def create
-    @user = User.new(first_name:params[:first_name], last_name:params[:last_name], city:params[:city], state:params[:state],email:params[:email], password:params[:password], password_confirmation:params[:confirm])
+    @location = Location.find_or_create_by(location_params)
+    @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to "/sessions/new"
+      p "~~~~~~~~~~~~~~~"
+      redirect_to '/events'
     else
       flash[:errors] = @user.errors.full_messages
-      redirect_to "/users/new"
+      p "################"
+      redirect_to "/"
+    end
   end
 
   def edit
@@ -21,8 +23,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user=User.find(params[:id])
-    if @user.update(first_name:params[:name], last_name:params[:name], email:params[:email], city:params[:city], state:params[:state])
+    @location = Location.find_or_create_by(location_params)
+    if @user.update(update_params)
       p "~~~~~~~~~~~~~~~~~~~~"
       redirect_to "/users/#{@user.id}"
     else 
@@ -33,9 +35,26 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     session[:user_id] = nil
     redirect_to "/users/new"
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirm)
+  end
+
+  def location_params
+    params.require(:user).require(:location).permit(:city, :state)
+  end
+
+  def update_params
+    params.require(:user).permit(:first_name, :last_name, :email)
+  end
+
+  def :verify_user
+    @user = User.find(session[:user_id]) if session.include? (:user_id)
+    redirect_to '/events' unless @user && session[:user_id] == params[:id]
   end
 end
