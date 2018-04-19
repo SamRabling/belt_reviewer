@@ -16,18 +16,26 @@ class UsersController < ApplicationController
       redirect_to "/users/new"
   end
 
-  def show
-    
-  end
-
-  def destroy
-  end
-
-  
-
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user=User.find(params[:id])
+    if @user.update(first_name:params[:name], last_name:params[:name], email:params[:email], city:params[:city], state:params[:state])
+      p "~~~~~~~~~~~~~~~~~~~~"
+      redirect_to "/users/#{@user.id}"
+    else 
+      flash[:errors] = @user.errors.full_messages
+      p "################"
+      redirect_to "/users/#{@user.id}/edit"
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    session[:user_id] = nil
+    redirect_to "/users/new"
   end
 end
