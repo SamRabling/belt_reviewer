@@ -1,0 +1,100 @@
+<h1>Welcome, <%=@user.name%></h1>
+<p><a href="">Edit My Profile</a></p>
+<p><a href="">Log Out</a></p>
+<p>Here are some of the events at your state:</p>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Host</th>
+        <th>Action/Status</th>
+    </tr>
+    <% @events.each do |event| %>
+        <tr>
+            <td><%= event.name %></td>
+            <td><%= event.date %></td>
+            <td><%= event.location %></td>
+            <td><%= event.host %></td>
+            <td><a href="dojos/show/<%= dojo['id']%>">Join</a> | <a href="dojos/<%= dojo['id']%>/edit">Cancel</a> | <a href="dojos/<%= dojo['id']%>/destroy" data-method="delete">Delete</a></td>
+        </tr>
+    <% end %>
+</table>
+<p>Here are some of the events at other state:</p>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Host</th>
+        <th>Action/Status</th>
+    </tr>
+    <% @events.each do |event| %>
+        <tr>
+            <td><%= event.name %></td>
+            <td><%= event.date %></td>
+            <td><%= event.location %></td>
+            <td><%= event.host %></td>
+            <td><a href="dojos/show/<%= dojo['id']%>">Join</a> | <a href="dojos/<%= dojo['id']%>/edit">Cancel</a> | <a href="dojos/<%= dojo['id']%>/destroy" data-method="delete">Delete</a></td>
+        </tr>
+    <% end %>
+</table>
+
+<h3>Add Event</h3>
+<form action = "events/create" method = "post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <label>Name:</label> <input type = "text" name = "name"> 
+  <label>Date:</label> <input type = "date" name = "date"> 
+  <label>Location:</label> <input type = "text" name = "city">  
+      <select name="state" name="state">
+        <option value="al">AL</option>
+        <option value="ak">AK</option>
+        <option value="az">AZ</option>
+        <option value="ca">CA</option>
+        <option value="co">CO</option>
+        <option value="ct">CT</option>
+        <option value="de">DE</option>
+        <option value="fl">FL</option>
+        <option value="ga">GA</option>
+        <option value="hi">HI</option>
+        <option value="id">ID</option>
+        <option value="il">IL</option>
+        <option value="in">IN</option>
+        <option value="ia">IA</option>
+        <option value="ks">KS</option>
+        <option value="ky">KY</option>
+        <option value="la">LA</option>
+        <option value="me">ME</option>
+        <option value="md">MD</option>
+        <option value="ma">MA</option>
+        <option value="mi">MI</option>
+        <option value="mn">MN</option>
+        <option value="ms">MS</option>
+        <option value="mo">MO</option>
+        <option value="mt">MT</option>
+        <option value="ne">NE</option>
+        <option value="nv">NV</option>
+        <option value="nh">NH</option>
+        <option value="nm">NM</option>
+        <option value="ny">NY</option>
+        <option value="nc">NC</option>
+        <option value="nd">ND</option>
+        <option value="oh">OH</option>
+        <option value="ok">OK</option>
+        <option value="or">OR</option>
+        <option value="pa">PA</option>
+        <option value="ri">RI</option>
+        <option value="sc">SC</option>
+        <option value="sd">SD</option>
+        <option value="tn">TN</option>
+        <option value="tx">TX</option>
+        <option value="ut">UT</option>
+        <option value="vt">VT</option>
+        <option value="va">VA</option>
+        <option value="wa">WA</option>
+        <option value="wv">WV</option>
+        <option value="wi">WI</option>
+        <option value="wy">WY</option>
+    </select>
+  <input type = "submit" value = "Add Event" name="submit">
+</form>

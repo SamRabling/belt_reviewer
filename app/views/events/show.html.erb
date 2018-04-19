@@ -1,0 +1,32 @@
+<p><%=@event.name %></p>
+<p><a href="">Events Dashboard</a></p>
+<p><a href="">Log Out</a></p>
+
+    <p><%=@event.user_host.first_name %> <%=@event.user.first_name %></p>
+    <p><%=@event.date%> </p>
+    <p><%=@event.location.city%>, <%=@event.location.state%></p>
+    <p><%=@event.users.count %></p>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>State</th>
+    </tr>
+    <% @events.each do |event| %>
+        <tr>
+            <td><%= event.name %></td>
+            <td><%= event.city %></td>
+            <td><%= event.state %></td>
+        </tr>
+    <% end %>
+</table>   
+
+<div>
+<p>Discussion about this event:</p>
+<form action="/comments/<%=comments.event_id%>" method="post">
+    <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+    <input type = "text" value = "content" name="content">
+    <input type = "submit" value = "Submit Comments" name="submit">
+</form>
+</div>
