@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   delete 'users/:id/destroy' => 'users#destroy'
 
-  get 'events/index' => 'events#index'
+  get 'events/' => 'events#index'
 
   post 'events/create' => 'events#create'
 

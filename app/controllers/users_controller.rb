@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :verify_user, only: [:edit, :update, :destroy]
+  before_action :require_login, except: [:new, :create]
   def new
     @errors = flash[:errors]
   end
@@ -7,6 +8,7 @@ class UsersController < ApplicationController
   def create
     @location = Location.find_or_create_by(location_params)
     @user = User.new(user_params)
+    @user.location = @location
     if @user.save
       session[:user_id] = @user.id
       p "~~~~~~~~~~~~~~~"
@@ -42,18 +44,18 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirm)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :confirm)
   end
 
   def location_params
-    params.require(:user).require(:location).permit(:city, :state)
+    params.require(:location).permit(:city, :state)
   end
 
   def update_params
     params.require(:user).permit(:first_name, :last_name, :email)
   end
 
-  def :verify_user
+  def verify_user
     @user = User.find(session[:user_id]) if session.include? (:user_id)
     redirect_to '/events' unless @user && session[:user_id] == params[:id]
   end
