@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   get 'sessions/new' => 'sessions#new'
 
+  root 'users/index' => 'users#index'
+
+  get 'users/new' => 'users#new'
+
+  post 'users/create' => 'users#create'
+
+  delete 'users/destroy' => 'users#destroy'
+
   get 'comments/index' => 'comments#index'
 
   post 'comments/create' => 'commentss#create'
@@ -13,13 +21,7 @@ Rails.application.routes.draw do
 
   delete 'events/destroy' => 'eventss#destroy'
 
-  root 'users/index' => 'users#index'
-
-  get 'users/new' => 'users#new'
-
-  post 'users/create' => 'users#create'
-
-  delete 'users/destroy' => 'users#destroy'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
