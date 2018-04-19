@@ -1,4 +1,4 @@
-<h1>Welcome, <%=@user.name%></h1>
+<h1>Welcome, <%=@user.first_name%></h1>
 <p><a href="">Edit My Profile</a></p>
 <p><a href="">Log Out</a></p>
 <p>Here are some of the events at your state:</p>
@@ -10,13 +10,13 @@
         <th>Host</th>
         <th>Action/Status</th>
     </tr>
-    <% @events.each do |event| %>
+    <% @same_state.each do |event| %>
         <tr>
             <td><%= event.name %></td>
             <td><%= event.date %></td>
-            <td><%= event.location %></td>
-            <td><%= event.host %></td>
-            <td><a href="dojos/show/<%= dojo['id']%>">Join</a> | <a href="dojos/<%= dojo['id']%>/edit">Cancel</a> | <a href="dojos/<%= dojo['id']%>/destroy" data-method="delete">Delete</a></td>
+            <td><%= event.location.city %></td>
+            <td><%= event.user.first_name %></td>
+            <td><a href="events/show/<%= event['id']%>">Join</a> | <a href="events/<%=event['id']%>/edit">Edit</a> | <a href="events/<%=event['id']%>/destroy" data-method="delete">Delete</a></td>
         </tr>
     <% end %>
 </table>
@@ -29,24 +29,31 @@
         <th>Host</th>
         <th>Action/Status</th>
     </tr>
-    <% @events.each do |event| %>
+    <% @other_state.each do |event| %>
         <tr>
             <td><%= event.name %></td>
             <td><%= event.date %></td>
-            <td><%= event.location %></td>
-            <td><%= event.host %></td>
-            <td><a href="dojos/show/<%= dojo['id']%>">Join</a> | <a href="dojos/<%= dojo['id']%>/edit">Cancel</a> | <a href="dojos/<%= dojo['id']%>/destroy" data-method="delete">Delete</a></td>
+            <td><%= event.location.city %></td>
+            <td><%= event.attendee.first_name %></td>
+            <td><a href="events/show/<%= event['id']%>">Join</a> | <a href="events/<%=event['id']%>/edit">Edit</a> | <a href="events/<%=event['id']%>/destroy" data-method="delete">Delete</a></td>
         </tr>
     <% end %>
 </table>
 
 <h3>Add Event</h3>
+
+<% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+        <h4><%= error %> </h4>
+    <% end %>
+<% end %>
+
 <form action = "events/create" method = "post">
   <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
-  <label>Name:</label> <input type = "text" name = "name"> 
-  <label>Date:</label> <input type = "date" name = "date"> 
-  <label>Location:</label> <input type = "text" name = "city">  
-      <select name="state" name="state">
+  <label>Name:</label> <input type = "text" name = "event[name]"> 
+  <label>Date:</label> <input type = "date" name = "event[date]"> 
+  <label>Location:</label> <input type = "text" name = "location[city]">  
+      <select name="state" name="location[state]">
         <option value="al">AL</option>
         <option value="ak">AK</option>
         <option value="az">AZ</option>
