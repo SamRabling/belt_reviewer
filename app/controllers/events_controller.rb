@@ -38,16 +38,19 @@ class EventsController < ApplicationController
   end
 
   def cancel
-    if @event.attendees.exists?(@user.id)
-      @event.attendees.delete(@user)
-    end
+    @user = current_user
+    @event.attendees.delete(@user)
     redirect_to "/events"
   end
 
   def update
-    @location = Location.find_or_create_by(location_params)
-    if @event.update(update_params)
-      @event.update(@location)
+    @event = Event.find(params[:id])
+    @loc = Location.find_or_create_by(location_params)
+    if @event.update(event_params)
+      p "~~~~~~~~~~~~~~~~~~~~"
+      redirect_to "/users/#{@event.id}"
+    end
+    if @event.update(@loc)
       p "~~~~~~~~~~~~~~~~~~~~"
       redirect_to "/users/#{@event.id}"
     else 
@@ -62,9 +65,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
-    s[:user_id] = nil
-    redirect_to "/users/new"
+    redirect_to "/events"
   end
 
   private

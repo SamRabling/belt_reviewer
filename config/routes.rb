@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   patch 'events/:id/update' => 'events#update'
 
-  delete 'events/:id/destroy' => 'eventss#destroy'
+  delete 'events/:id/destroy' => 'events#destroy'
 
   get 'comments/index' => 'comments#index'
 
