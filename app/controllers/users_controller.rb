@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_action :verify_user, only: [:edit, :update, :destroy]
-  before_action :require_login, except: [:new, :create]
   def new
     @errors = flash[:errors]
   end

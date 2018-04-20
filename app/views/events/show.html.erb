@@ -1,11 +1,11 @@
-<p><%=@event.name %></p>
+<h1><%=@event.name %></h1>
 <p><a href="/events">Events Dashboard</a></p>
 <p><a href="/logout">Log Out</a></p>
 
-    <p><%=@event.user_host.first_name %> <%=@event.user.first_name %></p>
+    <p><%=@event.user.first_name %> <%=@event.user.last_name %></p>
     <p><%=@event.date%> </p>
     <p><%=@event.location.city%>, <%=@event.location.state%></p>
-    <p><%=@event.users.count %></p>
+    <p><%=@event.attendees.count %></p>
 
 <table>
     <tr>
@@ -13,18 +13,18 @@
         <th>Location</th>
         <th>State</th>
     </tr>
-    <% @events.each do |event| %>
+    <% @attendees.each do |attendee| %>
         <tr>
-            <td><%= event.name %></td>
-            <td><%= event.city %></td>
-            <td><%= event.state %></td>
+            <td><%= attendee.first_name %> <%= attendee.last_name %></td>
+            <td><%= attendee.location.city %></td>
+            <td><%= attendee.location.state %></td>
         </tr>
     <% end %>
 </table>   
 
 <div>
 <p>Discussion about this event:</p>
-<form action="/comments/<%=comments.event_id%>" method="post">
+<form action="/comments/<%=@event.id%>" method="post">
     <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
     <input type = "text" value = "content" name="content">
     <input type = "submit" value = "Submit Comments" name="submit">

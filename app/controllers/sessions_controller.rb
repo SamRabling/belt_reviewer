@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       
       session[:user_id] = @user.id
       p "~~~~~~~~~~~~~~~~~~" 
-      redirect_to "/users/#{@user.id}"
+      redirect_to "/events"
       p "~~~~~~~~~~~~~~~~~~" 
     else 
       flash[:errors] = ["Invalid Combination"]

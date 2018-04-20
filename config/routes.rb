@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   post 'sessions/create' => 'sessions#create'
 
-  post 'logout' => 'sessions#destroy'
+  get 'logout' => 'sessions#destroy'
 
   get 'users/:id/edit' => 'users#edit'
 
@@ -17,9 +17,15 @@ Rails.application.routes.draw do
 
   get 'events/' => 'events#index'
 
+  get 'events/:id'=> 'events#show'
+
   post 'events/create' => 'events#create'
 
-  get 'events/' => 'events#edit'
+  patch 'events/:id/join' => 'events#join'
+
+  delete 'events/:id/cancel' => 'events#cancel'
+
+  get 'events/:id/edit' => 'events#edit'
 
   patch 'events/:id/update' => 'events#update'
 
@@ -27,7 +33,7 @@ Rails.application.routes.draw do
 
   get 'comments/index' => 'comments#index'
 
-  post 'comments/create' => 'commentss#create'
+  post 'comments/:id' => 'comments#create'
 
   delete 'comments/:id/destroy' => 'comments#destroy'
 
