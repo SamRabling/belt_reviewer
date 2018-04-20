@@ -1,7 +1,6 @@
-<h1>Welcome, <%=@user.name%></h1>
-<p><a href="">Events Dashboard</a></p>
-<p><a href="">Log Out</a></p>
-<h3>Add Event</h3>
+<h1>Edit Your Profile</h1>
+<p><a href="/events">Events Dashboard</a></p>
+<p><a href="/logout">Log Out</a></p>
 <form action = "/users/<%=current_user.id%>/update" method = "post">
   <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
   <input type = 'hidden' name = "_method" value = "patch">

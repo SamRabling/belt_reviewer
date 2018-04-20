@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   post 'sessions/create' => 'sessions#create'
 
-  get 'users/edit' => 'users#edit'
+  post 'logout' => 'sessions#destroy'
+
+  get 'users/:id/edit' => 'users#edit'
 
   patch 'users/:id/update' => 'users#update'
 
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
 
   post 'events/create' => 'events#create'
 
-  get 'events/edit' => 'events#edit'
+  get 'events/' => 'events#edit'
 
   patch 'events/:id/update' => 'events#update'
 
